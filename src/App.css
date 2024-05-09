@@ -14,9 +14,104 @@ html, body{
     height: 100%
 }
 .modal-content{
-    height: 100%;
+    height:auto;
 }
-    /*Animate*/
+/*Table style*/
+
+/*.head-col {*/
+/*    background-color: red;*/
+/*    position: absolute;*/
+/*    width: 150px;*/
+/*    margin-top: 2px;*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+/*    background-size: 100%;*/
+/*}*/
+
+/*.program-cell{*/
+/*    min-width: 100px;*/
+/*    background-color: green;*/
+/*}*/
+
+/*.table td div {*/
+/*    background:green;*/
+/*    height:100%;*/
+/*}*/
+
+
+
+.banner-container{
+    height: 35%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+.schedule-container{
+    height: 60%;
+    overflow: scroll;
+}
+table {
+    white-space: nowrap;
+    margin: 0;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    border: 1px solid black;
+    width: fit-content;
+}
+table td,
+table th {
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+}
+table thead th {
+    padding: 3px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 25vw;
+}
+table td {
+    background: #fff;
+    padding: 4px 5px;
+}
+
+table tbody th {
+    font-weight: 100;
+    text-align: left;
+    position: relative;
+}
+table thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+table tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+[role="region"][aria-labelledby][tabindex] {
+    width: 100%;
+    max-height: 98vh;
+    overflow: auto;
+}
+[role="region"][aria-labelledby][tabindex]:focus {
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    outline: 0;
+}
+
+
+.f-row{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1.7rem .5rem !important;
+}
+.size{}
+                                                                                            /*Animate*/
 .fade-in {
     animation: fadeInAnimation ease .5s;
     animation-iteration-count: 1;

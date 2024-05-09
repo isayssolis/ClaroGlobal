@@ -1,16 +1,13 @@
-export const Modal = ({ handleClose, children}) => {
+export const Modal = ({handleClose, children}) => {
 
     return (
         <div className="modal fade-in" tabIndex="-1">
-            <div className="modal-dialog">
-                <div className="modal-content">
+            <div className="modal-dialog h-100">
+                <div className="modal-content rounded-0 h-100 overflow-hidden">
                     <div className="modal-header">
-                        TITLE
                         <button type="button" className="btn-close" onClick={handleClose}> </button>
                     </div>
-                    <div>
-                        {children}
-                    </div>
+                    {children}
                 </div>
             </div>
         </div>
