@@ -1,23 +1,17 @@
 export const unixToTime = (unixTime)=>{
     let unix_timestamp = unixTime;
-// Create a new JavaScript Date object based on the timestamp
-// multiplied by 1000 so that the argument is in milliseconds, not seconds
-    var date = new Date(unix_timestamp * 1000);
-
-// Hours part from the timestamp
-    var hours = date.getHours();
-
-// Minutes part from the timestamp
-    var minutes = "0" + date.getMinutes();
-
-// Seconds part from the timestamp
-    var seconds = "0" + date.getSeconds();
-
-// Will display time in 10:30:23 format
-    var formattedTime = hours + ':' + minutes.substr(-2);
-
+// Crea nuevo objero tiempo
+// multiplica por 1000 para obtener milisegundos
+    let date = new Date(unix_timestamp * 1000);
+// obtener horas
+    let hours = date.getHours();
+// Minutos
+    let minutes = "0" + date.getMinutes();
+// Segundos
+    //let seconds = "0" + date.getSeconds();
+// Formato 10:30:23 format
+    let formattedTime = hours + ':' + minutes.substr(-2);
     // console.log(formattedTime);
     // console.log(date)
-    return(formattedTime)
-
+    return(formattedTime);
 }

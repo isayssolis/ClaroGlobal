@@ -1,28 +1,33 @@
 import {useEffect, useState} from "react";
-import {dummy} from "./response.js";
 import {unixToTime} from "../helpers/time_helper.js";
 import claroBanner from "../assets/LogoClaroVid.png";
 import {getChannels} from "../services/index.js";
+import {Alert} from "./Alert.jsx";
+import {Loader} from "./Loader.jsx";
 
 export const Guide = () => {
-    // const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [type, setType] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [banner, setBanner] = useState(null);
 
 
     useEffect(() => {
-        //setLoading(true);
-        //console.log(dummy)
+        setLoading(true);
         getChannels()
             .then((response) =>{
-                console.log(response.response)
-                //setData(response.response.channels)
+                setData(response.data.response.channels)
+                setType(null);
+                setMessage(null);
+                setLoading(false);
             })
-            .catch((error)=>{console.log(error) })
-
-
-        setData(dummy.response.channels)
-
+            .catch((error)=>{
+                console.log(error);
+                setLoading(false);
+                setType('danger');
+                setMessage(error.message);
+            })
     }, []);
 
     const renderBannerContainer = ()=>{
@@ -31,7 +36,6 @@ export const Guide = () => {
             description_large: "Bienvenido a la plataforma de streaming más completa de latinoamerica!",
             image_large: claroBanner
         }
-
         if(banner){
             const {
                 title,
@@ -47,7 +51,7 @@ export const Guide = () => {
                             <div className="col-md-6 mt-4">
                                 <h3>{title}</h3>
                                 <small>{`${unixToTime(unix_begin)} a ${unixToTime(unix_end)}` } Duración: {duration}</small>
-                                <h4>{description}</h4>
+                                <h5>{description}</h5>
                                 <p>{description_large}</p>
                             </div>
                         </div>
@@ -69,8 +73,7 @@ export const Guide = () => {
     }
 
 
-    const generateRows =()=>{
-        //console.log(data)
+    const renderRows =()=>{
         if(data.length > 0 ){
             const cells = data.map((
                 {
@@ -80,22 +83,23 @@ export const Guide = () => {
                 },index) => {
                 const subEvents = events.map(({unix_begin, unix_end, duration}, i)=>{
                     return(
-                        <td key={`${title}${i}`} onMouseOver={() => setBanner({
+                        <td key={`${title}${i}`}
+                            className='text-wrap my-hover'
+                            onMouseOver={() => setBanner({
                                 title,
                                 description,
                                 description_large,
                                 image_large,
                                 unix_begin, unix_end, duration
                             })}>
-                            {description_large}
-                            <br/>
+                            <p>{description_large}</p>
                             <small>{`${unixToTime(unix_begin)} - ${unixToTime(unix_end)}` }</small>
                         </td>
                     )
                 })
                 return(
                     <tr key={`${name}${index}`} className='bg-dark'>
-                        <th className="f-row" style={{backgroundImage:`url(${image})`}}>
+                        <th className="f-row" style={{backgroundColor:"#0e0e0e",backgroundImage:`url(${image})`}}>
                             <div>{number}</div>
                         </th>
                         {subEvents}
@@ -108,46 +112,42 @@ export const Guide = () => {
         }
     }
 
+    const renderHours= ()=>{
+        const th =[21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+        return th.map((el)=>{
+            return (<th key={el}>{`${el}:00`}</th>)
+        });
+    }
 
-    return (
-        <div className="h-100">
-            {renderBannerContainer()}
-            <div className="schedule-container bg-secondary">
-                <table className="table table-dark">
-                    <thead>
-                    <tr>
-                        <th>Canal</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>5</th>
-                        <th>6</th>
-                        <th>7</th>
-                        <th>8</th>
-                        <th>9</th>
-                        <th>10</th>
-                        <th>11</th>
-                        <th>12</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>4</th>
-                        <th>5</th>
-                        <th>6</th>
-                        <th>7</th>
-                        <th>8</th>
-                        <th>9</th>
-                        <th>10</th>
-                        <th>11</th>
-                        <th>12</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {generateRows()}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    );
+    const renderComponents = ()=> {
+        if(loading){
+            return <Loader />
+        }
+        if(message){
+            return <Alert type={type} text={message} />
+        }
+        if(data.length > 0){
+            return (
+                <div className="h-100">
+                    {renderBannerContainer()}
+                    <div className="schedule-container bg-secondary">
+                        <table className="table table-dark">
+                            <thead>
+                            <tr align='center'>
+                                <th>Canal</th>
+                                {renderHours()}
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {renderRows()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )
+        }else return '';
+    }
+
+
+    return renderComponents();
 };

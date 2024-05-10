@@ -3,8 +3,6 @@ import './App.css'
 import {Modal} from "./components/Modal.jsx";
 import {Guide} from "./components/Guide";
 
-
-
 function App() {
     const [modal, setModal] = useState(false);
 
@@ -15,7 +13,7 @@ function App() {
     return (
       <div className="container-fluid d-flex h-100">
           <div className="row align-self-center w-100">
-              <div className="col-2 mx-auto">
+              <div className="col-auto mx-auto">
                   <button className="btn btn-primary btn-lg btn-dark"
                           onClick={toggleModal}
                   >
