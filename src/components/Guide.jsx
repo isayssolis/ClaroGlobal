@@ -48,7 +48,7 @@ export const Guide = () => {
                 <div className="banner-container bg-dark text-white" style={{backgroundImage:`url(${image_large})`}}>
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-6 mt-4">
+                            <div className="col-md-6 my-margin">
                                 <h3>{title}</h3>
                                 <small>{`${unixToTime(unix_begin)} a ${unixToTime(unix_end)}` } Duración: {duration}</small>
                                 <h5>{description}</h5>
@@ -62,7 +62,7 @@ export const Guide = () => {
             <div className="banner-container bg-dark text-white" style={{backgroundImage:`url(${emptyBanner.image_large})`}}>
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-6 mt-4">
+                        <div className="col-md-6 my-margin">
                             <h3>{emptyBanner.description}</h3>
                             <p>{emptyBanner.description_large}</p>
                         </div>
@@ -84,7 +84,7 @@ export const Guide = () => {
                 const subEvents = events.map(({unix_begin, unix_end, duration}, i)=>{
                     return(
                         <td key={`${title}${i}`}
-                            className='text-wrap my-hover'
+                            className='text-wrap my-hover mobile-adjust'
                             onMouseOver={() => setBanner({
                                 title,
                                 description,

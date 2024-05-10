@@ -111,7 +111,7 @@ table tbody th {
 ::-webkit-scrollbar-thumb:hover {
     background: #410000;
 }
-
+.my-margin{margin-top: 1.5rem !important;}
 @media only screen and (max-width: 430px) {
     .banner-container {
         background-size: 60%;
@@ -128,5 +128,11 @@ table tbody th {
     }
     .f-row {
         background-position: bottom right;
+        padding: 0 !important;
     }
+    .mobile-adjust{
+        font-size: .8rem;
+        overflow-wrap: break-word;
+    }
+    .my-margin{margin-top: .2rem !important;}
 }
