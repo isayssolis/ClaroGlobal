@@ -12,7 +12,7 @@ function App() {
 
     return (
       <div className="container-fluid d-flex h-100">
-          <div className="row align-self-center w-100">
+          <div className="row align-self-center w-100 m-0">
               <div className="col-auto mx-auto">
                   <button className="btn btn-primary btn-lg btn-dark"
                           onClick={toggleModal}
