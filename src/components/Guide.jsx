@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {unixToTime} from "../helpers/time_helper.js";
 import claroBanner from "../assets/LogoClaroVid.png";
 import {getChannels} from "../services/index.js";
@@ -11,9 +11,11 @@ export const Guide = () => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [banner, setBanner] = useState(null);
-
+    const [th, setTh] = useState([21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]);
+    const itemsRef = useRef([]);
 
     useEffect(() => {
+
         setLoading(true);
         getChannels()
             .then((response) =>{
@@ -29,6 +31,28 @@ export const Guide = () => {
                 setMessage(error.message);
             })
     }, []);
+
+
+    // TODO Descomentar para hacer scroll automático de acuerdo a la hora de consulta!
+    // useEffect(()=>{
+    //     const d = new Date();
+    //     let hour = d.getHours();
+    //     console.log(hour)
+    //     console.log(itemsRef.current[hour])
+    //
+    //     if(itemsRef.current[hour]){
+    //         setTimeout(() => {
+    //             console.log("Delayed for 1 second.");
+    //             itemsRef.current[hour].scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'nearest',
+    //                 inline: 'start',
+    //             });
+    //         }, "500");
+    //         return
+    //     }
+    // },[data]);
+
 
     const renderBannerContainer = ()=>{
         const emptyBanner = {
@@ -113,9 +137,9 @@ export const Guide = () => {
     }
 
     const renderHours= ()=>{
-        const th =[21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-        return th.map((el)=>{
-            return (<th key={el}>{`${el}:00`}</th>)
+        // const th =[21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+        return th.map((el,i)=>{
+            return (<th ref={el => itemsRef.current[i] = el}  key={el}>{`${el}:00`}</th>)
         });
     }
 
@@ -139,7 +163,7 @@ export const Guide = () => {
                             </tr>
                             </thead>
                             <tbody>
-                                {renderRows()}
+                            {renderRows()}
                             </tbody>
                         </table>
                     </div>
